@@ -232,18 +232,19 @@ fun createLlmChatConfigs(
   supportThinking: Boolean = false,
   supportSpeculativeDecoding: Boolean = false,
 ): List<Config> {
+  // Always provide a slider for max tokens so users can adjust after import.
+  // When defaultMaxContextLength is provided (built-in models), use it as sliderMax.
+  // Otherwise (imported models), use a generous upper bound.
+  val sliderMaxTokens =
+    if (defaultMaxContextLength != null) defaultMaxContextLength.toFloat() else 16384f
   var maxTokensConfig: Config =
-    LabelConfig(key = ConfigKeys.MAX_TOKENS, defaultValue = "$defaultMaxToken")
-  if (defaultMaxContextLength != null) {
-    maxTokensConfig =
       NumberSliderConfig(
         key = ConfigKeys.MAX_TOKENS,
-        sliderMin = 2000f,
-        sliderMax = defaultMaxContextLength.toFloat(),
+        sliderMin = 256f,
+        sliderMax = sliderMaxTokens,
         defaultValue = defaultMaxToken.toFloat(),
         valueType = ValueType.INT,
       )
-  }
   val configs =
     listOf(
         maxTokensConfig,

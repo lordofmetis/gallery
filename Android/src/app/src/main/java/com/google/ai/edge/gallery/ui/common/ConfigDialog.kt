@@ -443,7 +443,7 @@ fun NumberSliderRow(config: NumberSliderConfig, values: SnapshotStateMap<String,
         } catch (e: Exception) {
           0f
         }
-      if (sliderValue >= 10000f) {
+      if (sliderValue >= 4096f) {
         Text(
           text = stringResource(R.string.max_tokens_warning_message),
           style = MaterialTheme.typography.bodySmall,
