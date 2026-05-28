@@ -94,7 +94,7 @@ data class ModelInitializationStatus(
 ) {
   fun isFirstInitialization(model: Model): Boolean {
     val backend =
-      model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = Accelerator.GPU.label)
+      model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = Accelerator.CPU.label)
     return !initializedBackends.contains(backend)
   }
 }
@@ -546,7 +546,7 @@ constructor(
       val backend =
         model.getStringConfigValue(
           key = ConfigKeys.ACCELERATOR,
-          defaultValue = Accelerator.GPU.label,
+          defaultValue = Accelerator.CPU.label,
         )
       val newInitializedBackends =
         if (status.status == ModelInitializationStatusType.INITIALIZED) {
@@ -1410,7 +1410,7 @@ constructor(
     val curModelInstance = uiState.value.modelInitializationStatus.toMutableMap()
     val initializedBackends = curModelInstance[model.name]?.initializedBackends ?: setOf()
     val backend =
-      model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = Accelerator.GPU.label)
+      model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = Accelerator.CPU.label)
     val newInitializedBackends =
       if (status == ModelInitializationStatusType.INITIALIZED) {
         initializedBackends + backend

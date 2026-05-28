@@ -78,7 +78,7 @@ object LlmChatModelHelper : LlmModelHelper {
     val temperature =
       model.getFloatConfigValue(key = ConfigKeys.TEMPERATURE, defaultValue = DEFAULT_TEMPERATURE)
     val accelerator =
-      model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = Accelerator.GPU.label)
+      model.getStringConfigValue(key = ConfigKeys.ACCELERATOR, defaultValue = Accelerator.CPU.label)
     val visionAccelerator =
       model.getStringConfigValue(
         key = ConfigKeys.VISION_ACCELERATOR,
@@ -210,7 +210,7 @@ object LlmChatModelHelper : LlmModelHelper {
       val accelerator =
         model.getStringConfigValue(
           key = ConfigKeys.ACCELERATOR,
-          defaultValue = Accelerator.GPU.label,
+          defaultValue = Accelerator.CPU.label,
         )
       ExperimentalFlags.enableConversationConstrainedDecoding =
         enableConversationConstrainedDecoding
