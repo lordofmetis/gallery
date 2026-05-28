@@ -1172,6 +1172,10 @@ constructor(
   }
 
   private fun createModelFromImportedModelInfo(info: ImportedModel): Model {
+    // Start from the model's declared accelerators, but always ensure
+    // CPU and NPU are available so users can try NPU on compatible hardware
+    // (Tensor G2 TPU). GPU is only added if the model declares it, since
+    // Mali GPU may crash on some devices.
     val accelerators: MutableList<Accelerator> =
       info.llmConfig.compatibleAcceleratorsList
         .mapNotNull { acceleratorLabel ->
@@ -1183,6 +1187,8 @@ constructor(
           }
         }
         .toMutableList()
+    if (Accelerator.CPU !in accelerators) accelerators.add(Accelerator.CPU)
+    if (Accelerator.NPU !in accelerators) accelerators.add(Accelerator.NPU)
     val llmMaxToken = info.llmConfig.defaultMaxTokens
     val llmSupportImage = info.llmConfig.supportImage
     val llmSupportAudio = info.llmConfig.supportAudio
