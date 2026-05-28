@@ -126,7 +126,7 @@ fun BenchmarkScreen(
           NumberSliderConfig(
             key = ConfigKeys.DECODE_TOKENS,
             sliderMin = 16f,
-            sliderMax = 1024f,
+            sliderMax = 8192f,
             defaultValue = 256f,
             valueType = ValueType.INT,
           )

@@ -26,4 +26,9 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Build
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleDebug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-edge-gallery-unlocked
+          path: Android/src/app/build/outputs/apk/debug/*.apk
